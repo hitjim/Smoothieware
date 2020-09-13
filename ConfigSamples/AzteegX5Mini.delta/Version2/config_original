@@ -1,8 +1,8 @@
 # Robot module configurations : general handling of movement G-codes and slicing into moves
 
 arm_solution                                 linear_delta     # delta selection
-arm_length                                   288.00           # this is the length of an arm from hinge to hinge
-arm_radius                                   181.00           # this is the horiontal distance from hinge to hinge when the effector is centered
+arm_length                                   370.00           # this is the length of an arm from hinge to hinge
+arm_radius                                   203.00           # this is the horiontal distance from hinge to hinge when the effector is centered
 
 default_feed_rate                            4000             # Default rate ( mm/minute ) for G1/G2/G3 moves
 default_seek_rate                            4000             # Default rate ( mm/minute ) for G0 moves
@@ -32,23 +32,23 @@ base_stepping_frequency                      100000           # Base frequency f
 alpha_step_pin                               2.1              # Pin for alpha stepper step signal
 alpha_dir_pin                                0.11             # Pin for alpha stepper direction
 alpha_en_pin                                 0.10!            # Pin for alpha enable pin
-alpha_current                                1.5              # X stepper motor current
-alpha_max_rate                               12000.0          # mm/min actuator max speed
-x_axis_max_speed                             12000.0          # mm/min cartesian max speed
+alpha_current                                1.0              # X stepper motor current
+alpha_max_rate                               30000.0          # mm/min actuator max speed
+x_axis_max_speed                             30000.0          # mm/min cartesian max speed
 
 beta_step_pin                                2.2              # Pin for beta stepper step signal
 beta_dir_pin                                 0.20             # Pin for beta stepper direction
 beta_en_pin                                  0.19!            # Pin for beta enable
-beta_current                                 1.5              # Y stepper motor current
-beta_max_rate                                12000.0          # mm/min
-y_axis_max_speed                             12000.0          # mm/min
+beta_current                                 1.0              # Y stepper motor current
+beta_max_rate                                30000.0          # mm/min
+y_axis_max_speed                             30000.0          # mm/min
 
 gamma_step_pin                               2.3              # Pin for gamma stepper step signal
 gamma_dir_pin                                0.22             # Pin for gamma stepper direction
 gamma_en_pin                                 0.21!            # Pin for gamma enable
-gamma_current                                1.5              # Z stepper motor current
-gamma_max_rate                               12000.0          # mm/min
-z_axis_max_speed                             12000.0          # mm/min
+gamma_current                                1.0              # Z stepper motor current
+gamma_max_rate                               30000.0          # mm/min
+z_axis_max_speed                             30000.0          # mm/min
 
 # Serial communications configuration ( baud rate default to 9600 if undefined )
 uart0.baud_rate                              115200           # Baud rate for the default hardware serial port
@@ -60,7 +60,7 @@ second_usb_serial_enable                     false            # This enables a s
 
 ## Extruder module configuration
 extruder.hotend.enable                          true             # Whether to activate the extruder module at all. All configuration is ignored if false
-extruder.hotend.steps_per_mm                    472              # Steps per mm for extruder stepper
+extruder.hotend.steps_per_mm                    140              # Steps per mm for extruder stepper
 extruder.hotend.default_feed_rate               600              # Default rate ( mm/minute ) for moves where only the extruder moves
 extruder.hotend.acceleration                    500              # Acceleration for the stepper motor mm/sec²
 extruder.hotend.max_speed                       50               # mm/s
@@ -82,7 +82,7 @@ extruder.hotend.en_pin                          0.4!             # Pin for extru
 #extruder.hotend.retract_zlift_length            0               # zlift on retract in mm, 0 disables
 #extruder.hotend.retract_zlift_feedrate          6000            # zlift feedrate in mm/min (Note mm/min NOT mm/sec)
 
-delta_current                                1.0              # Extruder stepper motor current
+delta_current                                0.7              # Extruder stepper motor current
 
 # Laser module configuration
 laser_module_enable                          false            # Whether to activate the laser module at all. All configuration is
@@ -106,7 +106,7 @@ temperature_control.hotend.thermistor        EPCOS100K        # see http://smoot
 temperature_control.hotend.set_m_code        104              #
 temperature_control.hotend.set_and_wait_m_code 109            #
 temperature_control.hotend.designator        T                #
-#temperature_control.hotend.max_temp         250              # Set maximum temperature - Will prevent heating above 300 by default
+#temperature_control.hotend.max_temp         300              # Set maximum temperature - Will prevent heating above 300 by default
 #temperature_control.hotend.min_temp         0                # Set minimum temperature - Will prevent heating below 0 by default
 
 #P39.98 I5.00 D79.91
@@ -115,7 +115,7 @@ temperature_control.hotend.designator        T                #
 # temperature_control.hotend.d_factor          79.91            #
 
 # For bed
-temperature_control.bed.enable               true            #
+temperature_control.bed.enable               false            #
 temperature_control.bed.thermistor_pin       0.23             #
 temperature_control.bed.heater_pin           2.7              #
 temperature_control.bed.thermistor           EPCOS100K        # http://smoothieware.org/temperaturecontrol#toc5
@@ -166,7 +166,7 @@ beta_max                                     0                #
 gamma_max_endstop                            1.28^            #
 gamma_homing_direction                       home_to_max      #
 gamma_min                                    0                #
-gamma_max                                    273.48              # change to suit your height
+gamma_max                                    430              # change to suit your height
 
 alpha_max_travel                             1000              # max travel in mm for alpha/X axis when homing
 beta_max_travel                              1000              # max travel in mm for beta/Y axis when homing
@@ -198,7 +198,7 @@ gamma_trim_mm                                   0                 # software tri
 #move_to_origin_after_home                    true             # move XY to 0,0 after homing
 
 # optional Z probe http://smoothieware.org/zprobe
-zprobe.enable                                true           # set to true to enable a zprobe
+zprobe.enable                                false           # set to true to enable a zprobe
 zprobe.probe_pin                             1.29!^          # pin probe is attached to if NC remove the !
 zprobe.slow_feedrate                         5               # mm/sec probe feed rate
 #zprobe.debounce_ms                          1               # set if noisy
@@ -206,8 +206,8 @@ zprobe.fast_feedrate                         100             # move feedrate
 zprobe.probe_height                          5               # how much above bed to start probe
 
 # associated with zprobe the leveling strategy to use
-leveling-strategy.delta-calibration.enable   true            # basic delta calibration
-leveling-strategy.delta-calibration.radius   100             # the probe radius
+#leveling-strategy.delta-calibration.enable   true            # basic delta calibration
+#leveling-strategy.delta-calibration.radius   100             # the probe radius
 
 # kill button (used to be called pause) maybe assigned to a different pin, set to the onboard pin by default
 kill_button_enable                           true             # set to true to enable a kill button
